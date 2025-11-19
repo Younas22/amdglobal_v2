@@ -1,0 +1,176 @@
+{
+  "countries": {
+    "US": {
+      "id": 1,
+      "name": "United States",
+      "code": "US"
+    },
+    "UK": {
+      "id": 2,
+      "name": "United Kingdom",
+      "code": "UK"
+    },
+    "FR": {
+      "id": 3,
+      "name": "France",
+      "code": "FR"
+    },
+    "DE": {
+      "id": 4,
+      "name": "Germany",
+      "code": "DE"
+    },
+    "JP": {
+      "id": 5,
+      "name": "Japan",
+      "code": "JP"
+    },
+    "AU": {
+      "id": 6,
+      "name": "Australia",
+      "code": "AU"
+    },
+    "CA": {
+      "id": 7,
+      "name": "Canada",
+      "code": "CA"
+    },
+    "AE": {
+      "id": 8,
+      "name": "United Arab Emirates",
+      "code": "AE"
+    },
+    "SG": {
+      "id": 9,
+      "name": "Singapore",
+      "code": "SG"
+    },
+    "TH": {
+      "id": 10,
+      "name": "Thailand",
+      "code": "TH"
+    }
+  },
+  "cities": {
+    "NYC": {
+      "id": 101,
+      "name": "New York",
+      "code": "NYC",
+      "country_code": "US"
+    },
+    "LAX": {
+      "id": 102,
+      "name": "Los Angeles",
+      "code": "LAX",
+      "country_code": "US"
+    },
+    "LDN": {
+      "id": 201,
+      "name": "London",
+      "code": "LDN",
+      "country_code": "UK"
+    },
+    "MAN": {
+      "id": 202,
+      "name": "Manchester",
+      "code": "MAN",
+      "country_code": "UK"
+    },
+    "PAR": {
+      "id": 301,
+      "name": "Paris",
+      "code": "PAR",
+      "country_code": "FR"
+    },
+    "LYN": {
+      "id": 302,
+      "name": "Lyon",
+      "code": "LYN",
+      "country_code": "FR"
+    },
+    "BER": {
+      "id": 401,
+      "name": "Berlin",
+      "code": "BER",
+      "country_code": "DE"
+    },
+    "MUN": {
+      "id": 402,
+      "name": "Munich",
+      "code": "MUN",
+      "country_code": "DE"
+    },
+    "TYO": {
+      "id": 501,
+      "name": "Tokyo",
+      "code": "TYO",
+      "country_code": "JP"
+    },
+    "OSA": {
+      "id": 502,
+      "name": "Osaka",
+      "code": "OSA",
+      "country_code": "JP"
+    },
+    "SYD": {
+      "id": 601,
+      "name": "Sydney",
+      "code": "SYD",
+      "country_code": "AU"
+    },
+    "MEL": {
+      "id": 602,
+      "name": "Melbourne",
+      "code": "MEL",
+      "country_code": "AU"
+    },
+    "TOR": {
+      "id": 701,
+      "name": "Toronto",
+      "code": "TOR",
+      "country_code": "CA"
+    },
+    "VAN": {
+      "id": 702,
+      "name": "Vancouver",
+      "code": "VAN",
+      "country_code": "CA"
+    },
+    "DXB": {
+      "id": 801,
+      "name": "Dubai",
+      "code": "DXB",
+      "country_code": "AE"
+    },
+    "AUH": {
+      "id": 802,
+      "name": "Abu Dhabi",
+      "code": "AUH",
+      "country_code": "AE"
+    },
+    "SGP": {
+      "id": 901,
+      "name": "Singapore City",
+      "code": "SGP",
+      "country_code": "SG"
+    },
+    "MRB": {
+      "id": 902,
+      "name": "Marina Bay",
+      "code": "MRB",
+      "country_code": "SG"
+    },
+    "BKK": {
+      "id": 1001,
+      "name": "Bangkok",
+      "code": "BKK",
+      "country_code": "TH"
+    },
+    "PHK": {
+      "id": 1002,
+      "name": "Phuket",
+      "code": "PHK",
+      "country_code": "TH"
+    }
+  }
+}
