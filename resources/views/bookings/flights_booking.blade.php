@@ -252,30 +252,41 @@
             </div>
 
             <!-- Payment Methods -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                    <i class="fas fa-credit-card text-blue-600 mr-3" style="color: #0077BE;"></i>
-                    Payment Methods
-                </h2>
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-credit-card text-blue-600 mr-3" style="color: #0077BE;"></i>
+        Payment Methods
+    </h2>
 
-                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
-                    <input type="radio" name="accept_payment" value="stripe" checked class="w-5 h-5 text-blue-600">
-                    <img src="{{ url('public/assets/images/stripe.png') }}" alt="Stripe" class="w-20 ml-4">
-                    <div class="ml-4">
-                        <div class="font-semibold text-gray-800">Stripe</div>
-                        <div class="text-sm text-gray-600">Credit/Debit Card</div>
-                    </div>
-                </label>
+    <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
+        <input type="radio" name="accept_payment" value="stripe" checked class="w-5 h-5 text-blue-600">
 
-                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
-                    <input type="radio" name="accept_payment" value="payone" checked class="w-5 h-5 text-blue-600">
-                    <img src="{{ url('public/assets/images/settings/payment/payone.jpeg') }}" alt="payone" class="w-20 ml-4">
-                    <div class="ml-4">
-                        <div class="font-semibold text-gray-800">Payone</div>
-                        <div class="text-sm text-gray-600">Accept 3D secure credit cards</div>
-                    </div>
-                </label>
-            </div>
+        <!-- CIRCLE + SMALL -->
+        <img src="{{ url('public/assets/images/settings/payment/stripe.png') }}"
+             alt="Stripe"
+             class="w-12 h-12 rounded-full object-cover ml-4">
+
+        <div class="ml-4">
+            <div class="font-semibold text-gray-800">Stripe</div>
+            <div class="text-sm text-gray-600">Credit/Debit Card</div>
+        </div>
+    </label>
+
+    <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
+        <input type="radio" name="accept_payment" value="payone" checked class="w-5 h-5 text-blue-600">
+
+        <!-- CIRCLE + SMALL -->
+        <img src="{{ url('public/assets/images/settings/payment/payone.jpeg') }}"
+             alt="Payone"
+             class="w-12 h-12 rounded-full object-cover ml-4">
+
+        <div class="ml-4">
+            <div class="font-semibold text-gray-800">Payone</div>
+            <div class="text-sm text-gray-600">Accept 3D secure credit cards</div>
+        </div>
+    </label>
+</div>
+
 
             <!-- Action Buttons -->
             <div class="flex gap-4">

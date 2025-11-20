@@ -10,7 +10,6 @@ class VisaRequest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'visa_category',
         'visa_type',
         'visa_plan',
         'first_name',
@@ -31,34 +30,12 @@ class VisaRequest extends Model
         'passport_back',
         'passport_photo',
         'other_document',
-        'guarantor_name',
-        'guarantor_nationality',
-        'guarantor_relation',
-        'guarantor_emirates_id',
-        'guarantor_passport_no',
-        'employer_name',
-        'company_contact',
-        'guarantor_visa_no',
-        'guarantor_visa_expiry',
-        'guarantor_mobile',
-        'guarantor_email',
-        'receipt_no',
-        'receipt_amount',
-        'receipt_date',
-        'visa_payment_date',
-        'ticket_otb_date',
-        'security_deposit_date',
         'agreed_terms',
     ];
 
     protected $casts = [
         'passport_issue_date' => 'date',
         'passport_expiry_date' => 'date',
-        'guarantor_visa_expiry' => 'date',
-        'receipt_date' => 'date',
-        'visa_payment_date' => 'date',
-        'ticket_otb_date' => 'date',
-        'security_deposit_date' => 'date',
         'agreed_terms' => 'boolean',
     ];
 }

@@ -6,9 +6,12 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\VisaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Admin\NewsletterController;
 
 // Admin Login Routes
-Route::get('/login', [AuthController::class, 'showLogin'])->name('admin.login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login'); // Laravel expects 'login' route
+Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login'); // Keep admin.login for backward compatibility
 Route::post('/signin', [AuthController::class, 'login'])->name('admin.signin.post');
 
 
@@ -34,6 +37,7 @@ Route::get('privacy_policy', function () {
 Route::get('terms_of_use', function () {
     return view('terms_of_use');
 });
+
 
 
 // HotelController
@@ -71,10 +75,16 @@ Route::get('/payment/success',  [FlightsController::class, 'payment_success'])->
 
 // visa
 Route::get('/visa', [VisaController::class, 'create'])->name('visa.create');
-Route::get('/other-visa', [VisaController::class, 'othervisa'])->name('visa.othervisa');
 Route::post('/visa-form', [VisaController::class, 'store'])->name('visa.store');
-Route::post('/other-visa', [VisaController::class, 'store'])->name('visa.store.other'); // Add this for other visa
 Route::get('/visa-success', [VisaController::class, 'success'])->name('visa.success');
+
+// contact us
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact/thank-you', [ContactController::class, 'thankYou'])->name('contact.thank-you');
+
+// newsletter subscription
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 // all pages
 Route::get('/', [PagesController::class, 'home'])->name('home');

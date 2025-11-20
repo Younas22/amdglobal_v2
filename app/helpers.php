@@ -6,12 +6,10 @@ if (!function_exists('getInitials')) {
     {
         $words = explode(' ', $name);
         $initials = '';
-        
         foreach ($words as $word) {
             $initials .= strtoupper(substr($word, 0, 1));
             if (strlen($initials) >= 2) break;
         }
-        
         return $initials;
     }
 }
@@ -57,7 +55,6 @@ if (!function_exists('processImages')) {
             },
             $content
         );
-        
         return $content;
     }
 

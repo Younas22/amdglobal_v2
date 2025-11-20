@@ -13,8 +13,10 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VisaController;
 use App\Http\Controllers\Admin\CurrenciesController;
+use App\Http\Controllers\Admin\ProfileController;
 
 
 Route::get('/test-csrf', function() {
@@ -35,9 +37,18 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
 
+    // Profile Management
+    Route::prefix('profile')->name('admin.profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('index');
+        Route::patch('/update', [ProfileController::class, 'update'])->name('update');
+        Route::patch('/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('update-picture');
+        Route::delete('/remove-picture', [ProfileController::class, 'removeProfilePicture'])->name('remove-picture');
+        Route::patch('/update-password', [ProfileController::class, 'updatePassword'])->name('update-password');
+        Route::patch('/update-notifications', [ProfileController::class, 'updateNotifications'])->name('update-notifications');
+    });
+
     // Bookings Management
     Route::prefix('bookings')->name('admin.bookings.')->group(function () {
-        Route::get('/', [BookingController::class, 'index'])->name('index');
         Route::get('/all', [BookingController::class, 'allBookings'])->name('all');
         Route::get('/cancelled-refunds', [BookingController::class, 'cancelledRefunds'])->name('cancelled-refunds');
         Route::get('/pending-confirmations', [BookingController::class, 'pendingConfirmations'])->name('pending-confirmations');
@@ -50,6 +61,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/{visaRequest}', [VisaController::class, 'show'])->name('show');
         Route::get('/{visaRequest}/download/{documentType}', [VisaController::class, 'downloadDocument'])->name('download');
         Route::get('/export/csv', [VisaController::class, 'export'])->name('export');
+    });
+
+        // Admin Contact Messages Routes
+    Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+        Route::get('/contact-messages', [ContactController::class, 'adminIndex'])->name('contact-messages.index');
+        Route::get('/contact-messages/{id}', [ContactController::class, 'adminShow'])->name('contact-messages.show');
+        Route::patch('/contact-messages/{id}/status', [ContactController::class, 'updateStatus'])->name('contact-messages.update-status');
+        Route::delete('/contact-messages/{id}', [ContactController::class, 'destroy'])->name('contact-messages.destroy');
     });
 
     // Customers Management

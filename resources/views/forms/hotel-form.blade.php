@@ -280,7 +280,7 @@
             </div>
 
             <!-- Search Button -->
-            <button type="submit" class="w-full px-6 py-3 bg-[#0077BE] text-white rounded-lg font-bold text-base hover:bg-[#005f99] transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+            <button type="submit" id="hotelSearchBtn" class="w-full px-6 py-3 bg-[#0077BE] text-white rounded-lg font-bold text-base hover:bg-[#005f99] transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
                 Search Hotels
                 <i class="fas fa-search text-sm"></i>
             </button>

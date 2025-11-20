@@ -10,7 +10,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <h2 class="mb-1">Bookings Management</h2>
-                        <p class="text-muted mb-0">Track and manage all flight bookings</p>
+                        <p class="text-muted mb-0">Track and manage all flight and hotel bookings</p>
                     </div>
                     <div class="col-md-6">
                         <div class="row g-3">
@@ -35,14 +35,22 @@
             <div class="filter-card">
                 <form method="GET" action="{{ route('admin.bookings.all') }}">
                     <div class="row g-3 align-items-end">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label">Search Bookings</label>
                             <div class="search-container">
                                 <i class="bi bi-search"></i>
-                                <input type="text" name="search" class="form-control search-input" 
-                                       placeholder="Search by booking ID, customer name, email..." 
+                                <input type="text" name="search" class="form-control search-input"
+                                       placeholder="Search by booking ID, customer name, email..."
                                        value="{{ request('search') }}">
                             </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Booking Type</label>
+                            <select name="type" class="form-select">
+                                <option value="all" {{ ($bookingType ?? 'all') === 'all' ? 'selected' : '' }}>All Types</option>
+                                <option value="flight" {{ ($bookingType ?? 'all') === 'flight' ? 'selected' : '' }}>Flight</option>
+                                <option value="hotel" {{ ($bookingType ?? 'all') === 'hotel' ? 'selected' : '' }}>Hotel</option>
+                            </select>
                         </div>
                         <div class="col-md-2">
                             <label class="form-label">Status</label>
@@ -61,10 +69,10 @@
                             <label class="form-label">Date To</label>
                             <input type="date" name="date_to" class="form-control" value="{{ request('date_to') }}">
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="d-flex gap-2">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-funnel"></i> Filter
+                                    <i class="bi bi-funnel"></i>
                                 </button>
                                 <a href="{{ route('admin.bookings.all') }}" class="btn btn-outline-secondary">
                                     <i class="bi bi-arrow-clockwise"></i>
@@ -87,12 +95,12 @@
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
+                                <th>Type</th>
                                 <th>Booking ID</th>
                                 <th>Customer</th>
-                                <th>Route</th>
-                                <th>Flight Details</th>
-                                <th>Travel Date</th>
-                                <th>Passengers</th>
+                                <th>Details</th>
+                                <th>Date/Stay</th>
+                                <th>Passengers/Guests</th>
                                 <th>Amount</th>
                                 <th>Status</th>
                                 <th>Payment</th>
@@ -103,12 +111,23 @@
                             @forelse($bookings as $booking)
                             <tr>
                                 <td>
-                                    <a href="{{ url('flight/invoice', $booking->booking_code_ref) }}" style="text-decoration: none;">
+                                    @if(isset($booking->booking_type))
+                                        <span class="badge {{ $booking->booking_type === 'flight' ? 'bg-primary' : 'bg-success' }}">
+                                            <i class="bi bi-{{ $booking->booking_type === 'flight' ? 'airplane' : 'building' }}"></i>
+                                            {{ ucfirst($booking->booking_type) }}
+                                        </span>
+                                    @else
+                                        <span class="badge bg-primary">
+                                            <i class="bi bi-airplane"></i> Flight
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ url((isset($booking->booking_type) && $booking->booking_type === 'hotel' ? 'hotel' : 'flight') . '/invoice', $booking->booking_code_ref) }}" style="text-decoration: none;">
                                         <div class="fw-semibold">#{{ $booking->booking_code_ref }}</div>
                                         <small class="text-muted">{{ $booking->created_at->format('M j, Y') }}</small>
                                     </a>
                                 </td>
-
                                 <td>
                                     <div class="d-flex align-items-center">
                                         @php
@@ -118,7 +137,7 @@
                                             $colors = ['28a745', 'dc3545', '6f42c1', 'fd7e14', '20c997'];
                                             $color = $colors[crc32($booking->customer_name) % count($colors)];
                                         @endphp
-                                        <img src="https://via.placeholder.com/32x32/{{ $color }}/ffffff?text={{ $initials }}" 
+                                        <img src="https://via.placeholder.com/32x32/{{ $color }}/ffffff?text={{ $initials }}"
                                              alt="" class="rounded-circle me-2">
                                         <div>
                                             <div class="fw-semibold">{{ $booking->customer_name }}</div>
@@ -127,21 +146,29 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="fw-semibold">{{ $booking->flight_route['route'] }}</div>
-                                    <small class="text-muted">{{ $booking->flight_route['stops'] }}</small>
+                                    @if(isset($booking->booking_type) && $booking->booking_type === 'hotel')
+                                        <div class="fw-semibold">{{ $booking->hotel_info['name'] ?? 'N/A' }}</div>
+                                        <small class="text-muted">{{ $booking->hotel_info['location'] ?? 'N/A' }}</small>
+                                    @else
+                                        <div class="fw-semibold">{{ $booking->flight_route['route'] ?? 'N/A' }}</div>
+                                        <small class="text-muted">{{ $booking->flight_route['stops'] ?? 'N/A' }}</small>
+                                    @endif
                                 </td>
                                 <td>
-                                    <div class="booking-details">
-                                        <div class="fw-semibold">{{ $booking->flight_details['flight_number'] }}</div>
-                                        <small class="text-muted">{{ $booking->flight_details['airline'] }}</small>
-                                    </div>
+                                    @if(isset($booking->booking_type) && $booking->booking_type === 'hotel')
+                                        <div class="fw-semibold">{{ $booking->stay_dates['check_in'] ?? 'N/A' }}</div>
+                                        <small class="text-muted">{{ $booking->stay_dates['nights'] ?? 'N/A' }}</small>
+                                    @else
+                                        <div class="fw-semibold">{{ $booking->travel_date['date'] ?? 'N/A' }}</div>
+                                        <small class="text-muted">{{ $booking->travel_date['time'] ?? 'N/A' }}</small>
+                                    @endif
                                 </td>
                                 <td>
-                                    <div class="fw-semibold">{{ $booking->travel_date['date'] }}</div>
-                                    <small class="text-muted">{{ $booking->travel_date['time'] }}</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-light text-dark">{{ $booking->passenger_count }}</span>
+                                    @if(isset($booking->booking_type) && $booking->booking_type === 'hotel')
+                                        <span class="badge bg-light text-dark">{{ $booking->guest_count ?? 'N/A' }}</span>
+                                    @else
+                                        <span class="badge bg-light text-dark">{{ $booking->passenger_count ?? 'N/A' }}</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="fw-semibold">{{ $booking->formatted_amount }}</div>

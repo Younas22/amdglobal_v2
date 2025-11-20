@@ -142,6 +142,12 @@
         color: #6b7280;
     }
 
+    @media (min-width: 1025px) {
+        .airport-dropdown {
+            min-width: 420px;
+        }
+    }
+
     @media (max-width: 1024px) {
         .airport-dropdown {
             position: fixed;
@@ -149,7 +155,7 @@
             top: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
-            max-width: 380px;
+            max-width: 450px;
         }
     }
 </style>
@@ -345,7 +351,7 @@
             </div>
 
             <!-- Search Button -->
-            <button type="submit" class="w-full px-6 py-3 bg-[#0077BE] text-white rounded-lg font-bold text-base hover:bg-[#005f99] transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+            <button type="submit" id="flightSearchBtn" class="w-full px-6 py-3 bg-[#0077BE] text-white rounded-lg font-bold text-base hover:bg-[#005f99] transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
                 Search Flights
                 <i class="fas fa-search text-sm"></i>
             </button>

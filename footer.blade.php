@@ -125,6 +125,22 @@
         .logo-fallback {
             display: none;
         }
+
+        /* IATA Logo Styling */
+        .iata-logo-container {
+            background: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .iata-logo-container img {
+            max-height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
     </style>
 
 
@@ -149,48 +165,39 @@
                 <div class="lg:col-span-5">
                     <!-- Logo with Fallback -->
 
-                    <div class="flex items-center mb-6 float-animation">
-                        <img 
-                            src="{{ getSettingImage('business_logo_white', 'branding') }}" 
-                            alt="Logo" 
-                            class="w-32 h-32 object-contain"
-                            style="max-height: 60px; width: auto; height: auto;"
-                        >
+                    <!-- Logo with Fallback -->
+                    <div class="flex flex-col items-start gap-2 mb-6">
+                        <!-- Main Logo -->
+                        <div class="float-animation">
+                            <img 
+                                src="{{ getSettingImage('business_logo_white', 'branding') }}" 
+                                alt="Logo" 
+                                class="w-32 h-32 object-contain"
+                                style="max-height: 60px; width: auto; height: auto;"
+                            >
+                        </div>
+
+                        <!-- IATA Logo on second line -->
+                        <div class="iata-logo-container mt-2">
+                            <img 
+                                src="{{ url('public/assets/images/settings/iata.png') }}" 
+                                alt="IATA Logo" 
+                                class="w-24 h-auto object-contain"
+                            >
+                        </div>
                     </div>
 
                     
                     <p class="text-blue-100 text-sm leading-relaxed mb-6">
                         <?= getSetting('meta_description', 'seo') ?>
                     </p>
-                    
-                    <!-- Contact Cards -->
-                    <div class="space-y-3 mb-6">
-                        <div class="glass-effect rounded-lg p-3 flex items-center gap-3 hover-lift">
-                            <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-white"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs text-blue-200">Email Us</div>
-                                <div class="text-sm font-semibold"><?=getSetting('contact_email', 'contact')?></div>
-                            </div>
-                        </div>
-                        
-                        <div class="glass-effect rounded-lg p-3 flex items-center gap-3 hover-lift">
-                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fab fa-whatsapp text-white"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs text-blue-200">WhatsApp</div>
-                                <div class="text-sm font-semibold"><?=getSetting('contact_phone', 'contact')?></div>
-                            </div>
-                        </div>
-                    </div>
 
+                    <!-- Social Links -->
                     @php
                         $socialLinks = getSetting('all', 'social');
                     @endphp
 
-                    <div class="flex gap-3">
+                    <div class="flex gap-3 mb-6">
                         @if(!empty($socialLinks['facebook_url']))
                             <a href="{{ $socialLinks['facebook_url'] }}" target="_blank" class="social-icon w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-blue-500 transition-colors relative z-10">
                                 <i class="fab fa-facebook-f text-white relative z-10"></i>
@@ -264,30 +271,28 @@
                         Newsletter
                     </h4>
                     <p class="text-blue-100 text-xs mb-4">Get exclusive travel deals!</p>
-                    <form id="newsletterForm" class="space-y-2">
-                        @csrf
-                        <input
-                            type="email"
-                            id="newsletterEmail"
-                            name="email"
-                            placeholder="Your email"
-                            required
+                    <div class="space-y-2">
+                        <input 
+                            type="email" 
+                            placeholder="Your email" 
                             class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition-all"
                         >
-                        <button type="submit" id="newsletterBtn" class="w-full bg-white text-blue-600 font-bold py-2.5 rounded-lg hover:bg-blue-50 transition-all hover:shadow-xl flex items-center justify-center gap-2 text-sm">
+                        <button class="w-full bg-white text-blue-600 font-bold py-2.5 rounded-lg hover:bg-blue-50 transition-all hover:shadow-xl flex items-center justify-center gap-2 text-sm">
                             <i class="fas fa-paper-plane"></i>
-                            <span id="newsletterBtnText">Subscribe Now</span>
+                            Subscribe Now
                         </button>
-                    </form>
+                    </div>
                 </div>
                 
             </div>
             
             <!-- Footer Bottom -->
             <div class="border-t border-white/20 pt-6">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
                     <div class="flex items-center gap-3 text-sm text-blue-100">
                         <span>© <?= date('Y'); ?> <strong class="text-white"><?= getSetting('business_name', 'main') ?></strong></span>
+                        <span class="hidden md:inline">•</span>
+                        <span class="hidden md:inline">All rights reserved. | IATA Accredited Agent</span>
                         <span class="hidden md:inline">•</span>
                         <span class="hidden md:inline">Made By <i class="fas fa-heart text-red-400"></i> <a href="https://travelbookingpanel.com/">TravelBookingPanel</a></span>
                     </div>
@@ -297,6 +302,12 @@
                         @endforeach
 
                     </div>
+                </div>
+
+                <!-- AMD Business Information -->
+                <div class="border-t border-white/20 pt-4 text-center text-xs text-blue-100">
+                    <p class="mb-2"><strong class="text-white">AMD Asian-Market-Deutschland</strong> Inh. Iftikhar Ahmed e.K.</p>
+                    <p>Licensed travel agency. All bookings are financially protected. Terms & Conditions apply.</p>
                 </div>
             </div>
             
@@ -437,13 +448,13 @@
                 data.data.forEach(airport => {
                     const airportItem = document.createElement('div');
                     airportItem.className = 'airport-item';
-                    airportItem.dataset.name = airport.city || airport.airport;
+                    airportItem.dataset.name = airport.city || airport.name;
                     airportItem.dataset.code = airport.code;
                     airportItem.innerHTML = `
                         <i class="fas fa-plane airport-icon"></i>
                         <div class="airport-details">
-                            <div class="airport-name">${airport.city || airport.airport}</div>
-                            <div class="airport-code">${airport.code} - ${airport.airport}</div>
+                            <div class="airport-name">${airport.city || airport.name}</div>
+                            <div class="airport-code">${airport.code} - ${airport.name}</div>
                         </div>
                     `;
                     listElement.appendChild(airportItem);
@@ -705,20 +716,17 @@
     function submitHotelForm(e) {
         e.preventDefault();
 
-        // Show hotel loader
-        showPageLoader('hotel');
-
         const hotelDestinationValue = document.getElementById('hotelDestinationValue');
         const hotelCheckinDate = document.getElementById('hotelCheckinDate');
         const hotelCheckoutDate = document.getElementById('hotelCheckoutDate');
         const hotelNationalityValue = document.getElementById('hotelNationalityValue');
 
         const country = hotelDestinationValue.value.toLowerCase().replace(/\s+/g, '-');
-        let checkinDate = window.hotelCheckinPicker && window.hotelCheckinPicker.selectedDates.length > 0
-            ? formatDate(window.hotelCheckinPicker.selectedDates[0])
+        let checkinDate = window.hotelCheckinPicker && window.hotelCheckinPicker.selectedDates.length > 0 
+            ? formatDate(window.hotelCheckinPicker.selectedDates[0]) 
             : hotelCheckinDate.value;
-        let checkoutDate = window.hotelCheckoutPicker && window.hotelCheckoutPicker.selectedDates.length > 0
-            ? formatDate(window.hotelCheckoutPicker.selectedDates[0])
+        let checkoutDate = window.hotelCheckoutPicker && window.hotelCheckoutPicker.selectedDates.length > 0 
+            ? formatDate(window.hotelCheckoutPicker.selectedDates[0]) 
             : hotelCheckoutDate.value;
 
         const adult = hotelTravelers.adult;
@@ -940,9 +948,6 @@
     function submitFlightForm(e) {
         e.preventDefault();
 
-        // Show flight loader
-        showPageLoader('flight');
-
         const flightFromValue = document.getElementById('flightFromValue');
         const flightToValue = document.getElementById('flightToValue');
         const flightDepartureDate = document.getElementById('flightDepartureDate');
@@ -954,14 +959,14 @@
         const selectedTripType = tripType === 'oneway' ? 'oneway' : 'round';
         const flightClass = flightClassValue.value;
 
-        let departureDate = window.flightDeparturePicker && window.flightDeparturePicker.selectedDates.length > 0
-            ? formatDate(window.flightDeparturePicker.selectedDates[0])
+        let departureDate = window.flightDeparturePicker && window.flightDeparturePicker.selectedDates.length > 0 
+            ? formatDate(window.flightDeparturePicker.selectedDates[0]) 
             : flightDepartureDate.value;
         let returnDate = null;
 
         if (selectedTripType === 'round') {
-            returnDate = window.flightReturnPicker && window.flightReturnPicker.selectedDates.length > 0
-                ? formatDate(window.flightReturnPicker.selectedDates[0])
+            returnDate = window.flightReturnPicker && window.flightReturnPicker.selectedDates.length > 0 
+                ? formatDate(window.flightReturnPicker.selectedDates[0]) 
                 : flightReturnDate.value;
         }
 
@@ -1009,179 +1014,7 @@
         initializeTabs();
         initializeHotelForm();
         initializeFlightForm();
-
-        // Hide page loader when page is fully loaded
-        hidePageLoader();
     });
-
-    // ========== PAGE LOADER FUNCTIONS ==========
-    function showPageLoader(loaderType = null) {
-        const loader = document.getElementById('pageLoader');
-        const loaderImage = document.getElementById('loaderImage');
-
-        if (loader) {
-            loader.classList.remove('hidden');
-
-            // Change loader image based on type
-            if (loaderImage && loaderType) {
-                const baseUrl = window.location.origin + "/" + baseFolder;
-                if (loaderType === 'flight') {
-                    loaderImage.src = baseUrl + '/public/assets/images/settings/flight-loader.gif';
-                } else if (loaderType === 'hotel') {
-                    loaderImage.src = baseUrl + '/public/assets/images/settings/hotel-loader.gif';
-                }
-            }
-        }
-    }
-
-    function hidePageLoader() {
-        const loader = document.getElementById('pageLoader');
-        if (loader) {
-            setTimeout(() => {
-                loader.classList.add('hidden');
-            }, 300);
-        }
-    }
-
-    // Hide loader when page is fully loaded
-    window.addEventListener('load', function() {
-        hidePageLoader();
-    });
-
-    // Show loader on page navigation
-    window.addEventListener('beforeunload', function() {
-        showPageLoader();
-    });
-
-    // ========== NEWSLETTER SUBSCRIPTION ==========
-    document.addEventListener('DOMContentLoaded', function() {
-        const newsletterForm = document.getElementById('newsletterForm');
-
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const emailInput = document.getElementById('newsletterEmail');
-                const submitBtn = document.getElementById('newsletterBtn');
-                const btnText = document.getElementById('newsletterBtnText');
-                const email = emailInput.value;
-
-                // Disable button and show loading
-                submitBtn.disabled = true;
-                btnText.textContent = 'Subscribing...';
-
-                // Get CSRF token
-                const csrfToken = document.querySelector('input[name="_token"]').value;
-
-                // Send AJAX request
-                fetch('<?= url('/newsletter/subscribe') ?>', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({ email: email })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Re-enable button
-                    submitBtn.disabled = false;
-                    btnText.textContent = 'Subscribe Now';
-
-                    // Show popup message
-                    if (data.success) {
-                        showNewsletterPopup('Success!', data.message, 'success');
-                        emailInput.value = ''; // Clear input
-                    } else {
-                        showNewsletterPopup('Already Subscribed', data.message, 'warning');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    submitBtn.disabled = false;
-                    btnText.textContent = 'Subscribe Now';
-                    showNewsletterPopup('Error', 'Something went wrong. Please try again later.', 'error');
-                });
-            });
-        }
-    });
-
-    // Newsletter popup function
-    function showNewsletterPopup(title, message, type) {
-        // Create popup overlay
-        const overlay = document.createElement('div');
-        overlay.className = 'newsletter-popup-overlay';
-        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 99999;';
-
-        // Determine icon and colors based on type
-        let icon = '';
-        let iconColor = '';
-        let borderColor = '';
-
-        if (type === 'success') {
-            icon = '<i class="fas fa-check-circle" style="font-size: 4rem;"></i>';
-            iconColor = '#10b981';
-            borderColor = '#10b981';
-        } else if (type === 'warning') {
-            icon = '<i class="fas fa-exclamation-circle" style="font-size: 4rem;"></i>';
-            iconColor = '#f59e0b';
-            borderColor = '#f59e0b';
-        } else if (type === 'error') {
-            icon = '<i class="fas fa-times-circle" style="font-size: 4rem;"></i>';
-            iconColor = '#ef4444';
-            borderColor = '#ef4444';
-        }
-
-        // Create popup content
-        const popup = document.createElement('div');
-        popup.className = 'newsletter-popup';
-        popup.style.cssText = `background: white; padding: 2.5rem; border-radius: 1rem; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border-top: 4px solid ${borderColor}; animation: popupSlideIn 0.3s ease-out;`;
-
-        popup.innerHTML = `
-            <div style="color: ${iconColor}; margin-bottom: 1.5rem;">
-                ${icon}
-            </div>
-            <h3 style="color: #1f2937; font-size: 1.5rem; font-weight: bold; margin-bottom: 0.75rem;">${title}</h3>
-            <p style="color: #6b7280; margin-bottom: 1.5rem; line-height: 1.6;">${message}</p>
-            <button onclick="this.closest('.newsletter-popup-overlay').remove()" style="background: ${borderColor}; color: white; padding: 0.75rem 2rem; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%;">
-                OK
-            </button>
-        `;
-
-        // Add animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes popupSlideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px) scale(0.95);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0) scale(1);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        overlay.appendChild(popup);
-        document.body.appendChild(overlay);
-
-        // Close on overlay click
-        overlay.addEventListener('click', function(e) {
-            if (e.target === overlay) {
-                overlay.remove();
-            }
-        });
-
-        // Auto close after 5 seconds
-        setTimeout(() => {
-            if (document.body.contains(overlay)) {
-                overlay.remove();
-            }
-        }, 5000);
-    }
 
 </script>
 

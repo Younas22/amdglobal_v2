@@ -1,121 +1,134 @@
 @extends('common.layout')
-
 @section('content')
-<style>
-@keyframes bounce {
-    0%, 20%, 53%, 80%, 100% {
-        transform: translate3d(0,0,0);
-    }
-    40%, 43% {
-        transform: translate3d(0, -30px, 0);
-    }
-    70% {
-        transform: translate3d(0, -15px, 0);
-    }
-    90% {
-        transform: translate3d(0, -4px, 0);
-    }
-}
 
-.success-check {
-    animation: bounce 0.6s ease-out;
-}
+<div class="flight-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>✓ Application Submitted Successfully!</h1>
+        <p>Thank you for choosing {{ getSetting('business_name', 'main', 'Travel Booking Panel') }}! Your visa application has been received and is being processed.</p>
+    </div>
 
+    <!-- Success Message Card -->
+    <div class="form-section" style="background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);">
+        <!-- <div style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; padding: 25px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+            <div style="font-size: 48px; margin-bottom: 15px;">✓</div>
+            <h2 style="margin: 0 0 10px 0; font-size: 24px; font-weight: 700;">Your Application Has Been Received!</h2>
+            <p style="margin: 0; opacity: 0.95; font-size: 15px;">We're processing your visa application and will contact you shortly with updates.</p>
+        </div> -->
 
-.success-animation {
-    position: relative;
-    margin: 0 auto 30px;
-}
+        <!-- What Happens Next -->
+        <div class="section-title" style="margin-bottom: 20px;">
+            <i class="fas fa-clock"></i> What Happens Next?
+        </div>
 
-.success-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #28a745, #20c997);
-    position: relative;
-    animation: scaleIn 0.5s ease-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
-}
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+            <!-- Step 1 -->
+            <div style="background: #F0F9FF; border: 2px solid #0077BE; border-radius: 10px; padding: 20px; text-align: center;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #0077BE 0%, #005A9C 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px;">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3 style="font-size: 16px; font-weight: 700; color: #003580; margin-bottom: 10px;">Document Review</h3>
+                <p style="font-size: 14px; color: #6B7280; margin: 0; line-height: 1.5;">Our team will verify all submitted documents</p>
+            </div>
 
-.success-tick {
-    width: 35px;
-    height: 20px;
-    border-left: 4px solid white;
-    border-bottom: 4px solid white;
-    transform: rotate(-45deg);
-    animation: drawTick 0.5s ease-out 0.2s both;
-}
+            <!-- Step 2 -->
+            <div style="background: #F0FDF4; border: 2px solid #10B981; border-radius: 10px; padding: 20px; text-align: center;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px;">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3 style="font-size: 16px; font-weight: 700; color: #003580; margin-bottom: 10px;">Contact You</h3>
+                <p style="font-size: 14px; color: #6B7280; margin: 0; line-height: 1.5;">We'll call you within 24 hours</p>
+            </div>
 
-@keyframes scaleIn {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
-}
-
-@keyframes drawTick {
-    0% { width: 0; height: 0; }
-    50% { width: 35px; height: 0; }
-    100% { width: 35px; height: 20px; }
-}
-</style>
-
-<div class="container py-5 d-flex justify-content-center align-items-center min-vh-100">
-    <div class="text-center">
-        <!-- Success Animation -->
-        <div class="success-animation mb-4">
-            <div class="success-circle">
-                <div class="success-tick"></div>
+            <!-- Step 3 -->
+            <div style="background: #FFFBEB; border: 2px solid #F59E0B; border-radius: 10px; padding: 20px; text-align: center;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px;">
+                    <i class="fas fa-hourglass-half"></i>
+                </div>
+                <h3 style="font-size: 16px; font-weight: 700; color: #003580; margin-bottom: 10px;">Processing Time</h3>
+                <p style="font-size: 14px; color: #6B7280; margin: 0; line-height: 1.5;">2-5 business days typically</p>
             </div>
         </div>
-        
-        <div class="card shadow-lg rounded-4 border-success" style="max-width: 600px; width: 100%;">
-            <div class="card-body p-5">
-                <h1 class="text-success mb-3" style="font-size: 2.5rem; font-weight: 700;">
-                    Application Submitted!
-                </h1>
-                <p class="fs-5 mb-4 text-muted">
-                    Thank you for choosing SkyBooking! Your visa application has been received and is being processed.
-                </p>
-                
-                <div class="row text-center mb-4">
-                    <div class="col-md-4 mb-3">
-                        <div class="p-3 bg-light rounded">
-                            <i class="fas fa-clock text-primary fs-2 mb-2"></i>
-                            <h6 class="mb-0">Processing Time</h6>
-                            <small class="text-muted">2-3 Business Days</small>
-                        </div>
+
+        <!-- Contact Information Section -->
+        <div style="background: #F9FAFB; border-left: 4px solid #EF4444; border-radius: 8px; padding: 25px; margin-bottom: 25px;">
+            <div class="section-title" style="margin-bottom: 20px; color: #DC2626;">
+                <i class="fas fa-exclamation-circle"></i> For Urgent Queries or Updates
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <!-- Email -->
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="p-3 bg-light rounded">
-                            <i class="fas fa-envelope text-info fs-2 mb-2"></i>
-                            <h6 class="mb-0">Email Updates</h6>
-                            <small class="text-muted">You'll receive updates</small>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="p-3 bg-light rounded">
-                            <i class="fas fa-phone text-warning fs-2 mb-2"></i>
-                            <h6 class="mb-0">Phone Support</h6>
-                            <small class="text-muted">We'll contact you</small>
-                        </div>
+                    <div class="info-content">
+                        <div class="info-label">Email</div>
+                        <a href="mailto:{{ getSetting('contact_email', 'contact', 'support@travelbookingpanel.com') }}" class="info-link">
+                            {{ getSetting('contact_email', 'contact', 'support@travelbookingpanel.com') }}
+                        </a>
                     </div>
                 </div>
-                
-                <div class="d-flex gap-3 justify-content-center">
-                    <a href="{{ url('/') }}" class="btn btn-primary px-4">
-                        <i class="fas fa-home me-2"></i>Back to Home
-                    </a>
-                    <a href="{{ route('visa.create') }}" class="btn btn-outline-primary px-4">
-                        <i class="fas fa-plus me-2"></i>New Application
-                    </a>
+
+                <!-- Phone -->
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-label">Phone</div>
+                        <a href="tel:{{ getSetting('contact_phone', 'contact', '+92 21 1234 5678') }}" class="info-link">
+                            {{ getSetting('contact_phone', 'contact', '+92 21 1234 5678') }}
+                        </a>
+                    </div>
+                </div>
+
+                @if(getSetting('business_address', 'contact'))
+                <!-- Address -->
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-label">Office Address</div>
+                        <div class="info-value">{{ getSetting('business_address', 'contact') }}</div>
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            <!-- Office Hours -->
+            <div class="office-hours" style="margin-top: 20px;">
+                <div class="hours-title">Office Hours</div>
+                <div class="hours-item">
+                    <span>Monday - Friday</span>
+                    <span>9:30 AM - 6:00 PM</span>
+                </div>
+                <div class="hours-item">
+                    <span>Saturday - Sunday</span>
+                    <span>Closed</span>
                 </div>
             </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group" style="justify-content: center; background: transparent; border: none; padding: 0;">
+            <a href="{{ url('/') }}" class="btn btn-submit">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+            <a href="{{ route('visa.create') }}" class="btn btn-reset">
+                <i class="fas fa-plus"></i> Submit Another Application
+            </a>
+        </div>
+
+        <!-- Security Notice -->
+        <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #E5E7EB;">
+            <p style="color: #6B7280; font-size: 13px; margin: 0;">
+                <i class="fas fa-shield-alt" style="color: #10B981;"></i>
+                Your information is secure and will be handled with complete confidentiality
+            </p>
         </div>
     </div>
 </div>
-
 
 @endsection

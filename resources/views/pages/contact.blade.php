@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 @endif
-
+ 
                 <div class="info-item">
                     <div class="info-icon">
                         <i class="fas fa-envelope"></i>
@@ -93,39 +93,50 @@
             <!-- Contact Form -->
             <div class="contact-form-wrapper">
                 <h2 class="form-title">Send us a Message</h2>
-                <form onsubmit="handleSubmit(event)">
+                <form id="contactForm" onsubmit="handleSubmit(event)">
                     <div class="form-group two-col">
                         <div class="form-group">
                             <label class="form-label required">First Name</label>
-                            <input type="text" class="form-input" placeholder="Enter first name" required>
+                            <input type="text" name="firstName" class="form-input" placeholder="Enter first name" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label required">Last Name</label>
-                            <input type="text" class="form-input" placeholder="Enter last name" required>
+                            <input type="text" name="lastName" class="form-input" placeholder="Enter last name" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label required">Email</label>
-                        <input type="email" class="form-input" placeholder="Enter your email" required>
+                        <input type="email" name="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone (Optional)</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="Enter your phone number">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label required">Subject</label>
-                        <select class="form-select" required>
+                        <select name="subject" class="form-select" required>
                             <option value="">Select Subject</option>
-                            <option value="flight-booking">Flight Booking</option>
-                            <option value="hotel-booking">Hotel Booking</option>
-                            <option value="visa-support">Visa Support</option>
-                            <option value="technical-issue">Technical Issue</option>
+                            <option value="booking">Booking Assistance</option>
+                            <option value="cancellation">Cancellation/Refund</option>
+                            <option value="modification">Flight Modification</option>
+                            <option value="complaint">Complaint</option>
                             <option value="feedback">Feedback</option>
+                            <option value="partnership">Business Partnership</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
 
                     <div class="form-group">
+                        <label class="form-label">Booking Reference (Optional)</label>
+                        <input type="text" name="bookingRef" class="form-input" placeholder="Enter booking reference if applicable">
+                    </div>
+
+                    <div class="form-group">
                         <label class="form-label required">Message</label>
-                        <textarea class="form-textarea" placeholder="Tell us how we can help..." required></textarea>
+                        <textarea name="message" class="form-textarea" placeholder="Tell us how we can help..." rows="5" required></textarea>
                     </div>
 
                     <div class="checkbox-group">
@@ -135,7 +146,7 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="submit-btn">
+                    <button type="submit" class="submit-btn" id="submitBtn">
                         <i class="fas fa-paper-plane"></i> Send Message
                     </button>
                 </form>
@@ -250,10 +261,56 @@
     </div>
 
     <script>
-        function handleSubmit(event) {
+        async function handleSubmit(event) {
             event.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            // Form reset logic here
+
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const formData = new FormData(form);
+
+            // Convert FormData to JSON
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Disable submit button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            try {
+                const response = await fetch('{{ route("contact.store") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Redirect to thank you page
+                    window.location.href = '{{ route("contact.thank-you") }}';
+                } else {
+                    // Show error message
+                    if (result.errors) {
+                        const errorMessages = Object.values(result.errors).flat().join('\n');
+                        alert('Please correct the following errors:\n\n' + errorMessages);
+                    } else {
+                        alert(result.message || 'Something went wrong. Please try again.');
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while sending your message. Please try again later.');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            }
         }
 
         function toggleFAQ(element) {

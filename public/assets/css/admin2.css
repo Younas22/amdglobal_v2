@@ -2331,6 +2331,14 @@ input:checked + .status-slider:before {
         padding: 0.875rem 1rem;
     }
 
+    .header h4 {
+        font-size: 1.125rem;
+    }
+
+    .header small {
+        font-size: 0.75rem;
+    }
+
     .page-header {
         padding: 1.25rem;
     }
@@ -2624,6 +2632,125 @@ input:checked + .status-slider:before {
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+/* Sidebar Logo Styles */
+.sidebar-logo {
+    max-height: 40px;
+    max-width: 185px;
+    object-fit: contain;
+}
+
+.brand-text {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Mobile Sidebar Toggle Button */
+.sidebar-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 1001;
+}
+
+.sidebar-toggle:hover {
+    background: var(--primary-hover);
+}
+
+.sidebar-toggle i {
+    font-size: 1.25rem;
+}
+
+/* Mobile Header Toggle Button */
+.mobile-sidebar-toggle {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.mobile-sidebar-toggle:hover {
+    background: var(--primary-hover);
+}
+
+.mobile-sidebar-toggle i {
+    font-size: 1.5rem;
+}
+
+/* Show sidebar when open on mobile */
+.sidebar.open {
+    transform: translateX(0) !important;
+}
+
+/* Overlay for mobile sidebar */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+/* Desktop: Hide toggle button */
+@media (min-width: 992px) {
+    .sidebar-toggle {
+        display: none;
+    }
+
+    .mobile-sidebar-toggle {
+        display: none;
+    }
+}
+
+/* Mobile: Show toggle button */
+@media (max-width: 768px) {
+    .sidebar-header {
+        position: relative;
+    }
+
+    .sidebar-brand {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .sidebar-logo {
+        max-height: 32px;
+    }
+
+    .brand-text {
+        margin-top: 0.25rem;
+        font-size: 0.8125rem;
+    }
+}
+
 /* Print Styles */
 @media print {
     .sidebar,
@@ -2632,15 +2759,15 @@ input:checked + .status-slider:before {
     .modern-btn {
         display: none !important;
     }
-    
+
     .main-content {
         margin-left: 0 !important;
     }
-    
+
     .content-area {
         padding: 0 !important;
     }
-    
+
     .page-header,
     .stats-card,
     .bookings-table {

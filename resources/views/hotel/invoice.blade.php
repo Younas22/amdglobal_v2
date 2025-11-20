@@ -32,9 +32,26 @@
     </div>
 
     @php
-        $data = json_decode($booking->booking_data);
-        $days = (new DateTime($data->booking_data->checkin))->diff(new DateTime($data->booking_data->checkout))->days;
-        $guestData = isset($data->guests) ? (is_array($data->guests) ? $data->guests : json_decode($data->guests, true)) : [];
+        // Decode booking_data if it's a string, otherwise use as-is
+        if (is_string($booking->booking_data)) {
+            $data = json_decode($booking->booking_data);
+        } else {
+            $data = json_decode(json_encode($booking->booking_data));
+        }
+
+        // Calculate days between check-in and check-out
+        $bookingData = is_object($data->booking_data) ? $data->booking_data : (object)$data->booking_data;
+        $days = (new DateTime($bookingData->checkin))->diff(new DateTime($bookingData->checkout))->days;
+
+        // Get guest data from booking_guest field
+        $guestData = [];
+        if (!empty($booking->booking_guest)) {
+            if (is_string($booking->booking_guest)) {
+                $guestData = json_decode($booking->booking_guest, true);
+            } else {
+                $guestData = $booking->booking_guest;
+            }
+        }
     @endphp
 
     <!-- Invoice -->
@@ -81,14 +98,14 @@
             <div class="mb-4">
                 <h3 class="text-xs font-bold text-blue-900 uppercase tracking-wider mb-2 pb-1 border-b border-gray-200">Hotel Information</h3>
                 <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                    <h4 class="font-bold text-gray-900 text-sm mb-1">{{$data->booking_data->hotel_name}}</h4>
+                    <h4 class="font-bold text-gray-900 text-sm mb-1">{{$bookingData->hotel_name ?? 'N/A'}}</h4>
                     <p class="text-xs text-gray-600 flex items-center gap-1 mb-1">
                         <i class="fas fa-map-marker-alt text-blue-600"></i>
-                        {{$data->booking_data->address}}
+                        {{$bookingData->address ?? 'N/A'}}
                     </p>
                     <div class="flex items-center gap-2 mt-2">
-                        <span class="text-yellow-500 text-sm">{!! str_repeat('★', $data->booking_data->stars ?? 5) !!}</span>
-                        <span class="text-xs text-gray-600">{{$data->booking_data->stars ?? 5}} Star Hotel</span>
+                        <span class="text-yellow-500 text-sm">{!! str_repeat('★', $bookingData->stars ?? 5) !!}</span>
+                        <span class="text-xs text-gray-600">{{$bookingData->stars ?? 5}} Star Hotel</span>
                     </div>
                 </div>
             </div>
@@ -102,11 +119,11 @@
                     </div>
                     <div>
                         <div class="text-gray-600 font-semibold mb-0.5">Check-in</div>
-                        <div class="font-bold text-gray-800">{{\Carbon\Carbon::parse($data->booking_data->checkin)->format('d M Y')}}</div>
+                        <div class="font-bold text-gray-800">{{\Carbon\Carbon::parse($bookingData->checkin)->format('d M Y')}}</div>
                     </div>
                     <div>
                         <div class="text-gray-600 font-semibold mb-0.5">Check-out</div>
-                        <div class="font-bold text-gray-800">{{\Carbon\Carbon::parse($data->booking_data->checkout)->format('d M Y')}}</div>
+                        <div class="font-bold text-gray-800">{{\Carbon\Carbon::parse($bookingData->checkout)->format('d M Y')}}</div>
                     </div>
                     <div>
                         <div class="text-gray-600 font-semibold mb-0.5">Nights</div>
@@ -161,7 +178,7 @@
                                     {{ $guest['first_name'] ?? 'N/A' }} {{ $guest['last_name'] ?? 'N/A' }}
                                 </td>
                                 <td class="border border-gray-300 px-2 py-1.5">
-                                    {{ ucfirst($guest['gender'] ?? 'N/A') }}
+                                    {{ ucfirst($guest['title'] ?? 'N/A') }}
                                 </td>
                             </tr>
                                 @endforeach

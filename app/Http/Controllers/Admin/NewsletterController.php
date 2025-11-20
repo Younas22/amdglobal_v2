@@ -246,7 +246,7 @@ public function bulkImport(Request $request)
 public function changeStatus($id, $action)
 {
     $subscriber = NewsletterSubscriber::findOrFail($id);
-    
+
     switch ($action) {
         case 'activate':
             $subscriber->activate();
@@ -263,8 +263,46 @@ public function changeStatus($id, $action)
         default:
             return response()->json(['success' => false, 'message' => 'Invalid action']);
     }
-    
+
     return response()->json(['success' => true, 'message' => $message]);
+}
+
+// Public subscription method for frontend
+public function subscribe(Request $request)
+{
+    try {
+        $validated = $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        // Check if email already exists
+        $existingSubscriber = NewsletterSubscriber::where('email', $validated['email'])->first();
+
+        if ($existingSubscriber) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This email is already subscribed to our newsletter!'
+            ]);
+        }
+
+        // Create new subscriber
+        NewsletterSubscriber::create([
+            'email' => $validated['email'],
+            'status' => 'active',
+            'joined_date' => now()
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Thank you for subscribing! You will receive exclusive travel deals in your inbox.'
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong. Please try again later.'
+        ], 500);
+    }
 }
 
 }

@@ -1,7 +1,18 @@
 <div class="sidebar">
     <div class="sidebar-header">
+        <!-- Mobile Toggle Button -->
+        <button class="sidebar-toggle d-lg-none" type="button" onclick="toggleSidebar()">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <!-- Business Logo -->
         <a href="{{ route('admin.dashboard.index') }}" class="sidebar-brand">
-            <i class="bi bi-airplane"></i> {{getSetting('business_name', 'main', 'Default Title')}}
+            @if(getSettingImage('favicon','branding'))
+                <img src="{{ getSettingImage('business_logo','branding') }}" alt="{{ getSetting('business_name', 'main', 'Default Title') }}" width="700" height="500" class="sidebar-logo">
+            @else
+                <i class="bi bi-airplane"></i>
+            @endif
+            <!-- <span class="brand-text">{{getSetting('business_name', 'main', 'Default Title')}}</span> -->
         </a>
     </div>
 
@@ -45,6 +56,20 @@
                 Travel Partners
             </a>
         </div>
+
+                
+<li class="nav-item">
+    <a href="{{ route('admin.contact-messages.index') }}" class="nav-link {{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}">
+        <i class="bi bi-envelope"></i>
+        <span>Contact Messages</span>
+        @php
+            $newMessages = \App\Models\ContactMessage::where('status', 'new')->count();
+        @endphp
+        @if($newMessages > 0)
+            <span class="badge bg-warning text-dark ms-auto">{{ $newMessages }}</span>
+        @endif
+    </a>
+</li>
 
         <div class="nav-item">
             <a href="{{ route('admin.currencies.index') }}" class="nav-link {{ request()->routeIs('admin.currencies*') ? 'active' : '' }}">
@@ -119,3 +144,27 @@
         </div>
     </nav>
 </div>
+
+<script>
+    // Close sidebar when clicking on a link (mobile only)
+    document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.querySelectorAll('.sidebar .nav-link');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Only close sidebar on mobile devices (screen width < 768px)
+                if (window.innerWidth < 768) {
+                    const sidebar = document.querySelector('.sidebar');
+                    const overlay = document.querySelector('.sidebar-overlay');
+
+                    if (sidebar && sidebar.classList.contains('open')) {
+                        sidebar.classList.remove('open');
+                        if (overlay) {
+                            overlay.classList.remove('active');
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>

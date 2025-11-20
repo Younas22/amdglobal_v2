@@ -270,7 +270,6 @@ class HotelController extends Controller
     public function invoice($bookingRef)
     {
         $booking = HotelBooking::where('booking_code_ref', $bookingRef)->first();
-
         if (!$booking) {
             abort(404, 'Booking not found.');
         }

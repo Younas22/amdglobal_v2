@@ -49,8 +49,70 @@
             }
         }
     </style>
+
+    <!-- Loader Styles -->
+    <style>
+        #pageLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #pageLoader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #pageLoader img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .loader-text {
+            position: absolute;
+            bottom: 30%;
+            font-size: 14px;
+            color: #0077BE;
+            font-weight: 600;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
 </head>
 <body>
+    <!-- Page Loader -->
+    <div id="pageLoader">
+        <div style="text-align: center;">
+            @php
+                // Check if current route is hotel-related
+                $isHotelPage = request()->is('hotel/*') ||
+                               request()->is('hotels/*') ||
+                               request()->is('hotels') ||
+                               request()->routeIs('hotel.*') ||
+                               request()->routeIs('hotels.*');
+
+                // Determine which loader to show
+                $loaderImage = $isHotelPage
+                    ? 'public/assets/images/settings/hotel-loader.gif'
+                    : 'public/assets/images/settings/flight-loader.gif';
+            @endphp
+            <img id="loaderImage" src="{{ url($loaderImage) }}" alt="Loading...">
+            <!-- <p class="loader-text">Loading...</p> -->
+        </div>
+    </div>
+
     <!-- <div id="dropdownOverlay" class="dropdown-overlay"></div> -->
     <!-- NAVIGATION BAR -->
     <nav class="nav-bar sticky top-0 z-50">

@@ -4,13 +4,34 @@
         function toggleTheme() {
             const html = document.documentElement;
             const themeIcon = document.getElementById('theme-icon');
-            
+
             if (html.getAttribute('data-bs-theme') === 'dark') {
                 html.setAttribute('data-bs-theme', 'light');
                 themeIcon.className = 'bi bi-moon-fill';
             } else {
                 html.setAttribute('data-bs-theme', 'dark');
                 themeIcon.className = 'bi bi-sun-fill';
+            }
+        }
+
+        // Mobile Sidebar Toggle Function
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            if (!overlay) {
+                // Create overlay if it doesn't exist
+                const newOverlay = document.createElement('div');
+                newOverlay.className = 'sidebar-overlay';
+                newOverlay.addEventListener('click', toggleSidebar);
+                document.body.appendChild(newOverlay);
+            }
+
+            sidebar.classList.toggle('open');
+
+            const existingOverlay = document.querySelector('.sidebar-overlay');
+            if (existingOverlay) {
+                existingOverlay.classList.toggle('active');
             }
         }
 
