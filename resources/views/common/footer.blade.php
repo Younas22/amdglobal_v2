@@ -125,6 +125,23 @@
         .logo-fallback {
             display: none;
         }
+
+                /* IATA Logo Styling */
+        .iata-logo-container {
+            background: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .iata-logo-container img {
+            max-height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+        
     </style>
 
 
@@ -149,48 +166,39 @@
                 <div class="lg:col-span-5">
                     <!-- Logo with Fallback -->
 
-                    <div class="flex items-center mb-6 float-animation">
-                        <img 
-                            src="{{ getSettingImage('business_logo_white', 'branding') }}" 
-                            alt="Logo" 
-                            class="w-32 h-32 object-contain"
-                            style="max-height: 60px; width: auto; height: auto;"
-                        >
+                    <!-- Logo with Fallback -->
+                    <div class="flex flex-col items-start gap-2 mb-6">
+                        <!-- Main Logo -->
+                        <div class="float-animation">
+                            <img 
+                                src="{{ getSettingImage('business_logo_white', 'branding') }}" 
+                                alt="Logo" 
+                                class="w-32 h-32 object-contain"
+                                style="max-height: 60px; width: auto; height: auto;"
+                            >
+                        </div>
+
+                        <!-- IATA Logo on second line -->
+                        <div class="iata-logo-container mt-2">
+                            <img 
+                                src="{{ url('public/assets/images/settings/iata.png') }}" 
+                                alt="IATA Logo" 
+                                class="w-24 h-auto object-contain"
+                            >
+                        </div>
                     </div>
 
                     
                     <p class="text-blue-100 text-sm leading-relaxed mb-6">
                         <?= getSetting('meta_description', 'seo') ?>
                     </p>
-                    
-                    <!-- Contact Cards -->
-                    <div class="space-y-3 mb-6">
-                        <div class="glass-effect rounded-lg p-3 flex items-center gap-3 hover-lift">
-                            <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-white"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs text-blue-200">Email Us</div>
-                                <div class="text-sm font-semibold"><?=getSetting('contact_email', 'contact')?></div>
-                            </div>
-                        </div>
-                        
-                        <div class="glass-effect rounded-lg p-3 flex items-center gap-3 hover-lift">
-                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fab fa-whatsapp text-white"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs text-blue-200">WhatsApp</div>
-                                <div class="text-sm font-semibold"><?=getSetting('contact_phone', 'contact')?></div>
-                            </div>
-                        </div>
-                    </div>
 
+                    <!-- Social Links -->
                     @php
                         $socialLinks = getSetting('all', 'social');
                     @endphp
 
-                    <div class="flex gap-3">
+                    <div class="flex gap-3 mb-6">
                         @if(!empty($socialLinks['facebook_url']))
                             <a href="{{ $socialLinks['facebook_url'] }}" target="_blank" class="social-icon w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-blue-500 transition-colors relative z-10">
                                 <i class="fab fa-facebook-f text-white relative z-10"></i>
@@ -285,9 +293,11 @@
             
             <!-- Footer Bottom -->
             <div class="border-t border-white/20 pt-6">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
                     <div class="flex items-center gap-3 text-sm text-blue-100">
                         <span>© <?= date('Y'); ?> <strong class="text-white"><?= getSetting('business_name', 'main') ?></strong></span>
+                        <span class="hidden md:inline">•</span>
+                        <span class="hidden md:inline">All rights reserved. | IATA Accredited Agent</span>
                         <span class="hidden md:inline">•</span>
                         <span class="hidden md:inline">Made By <i class="fas fa-heart text-red-400"></i> <a href="https://travelbookingpanel.com/">TravelBookingPanel</a></span>
                     </div>
@@ -297,6 +307,12 @@
                         @endforeach
 
                     </div>
+                </div>
+
+                <!-- AMD Business Information -->
+                <div class="border-t border-white/20 pt-4 text-center text-xs text-blue-100">
+                    <p class="mb-2"><strong class="text-white">AMD Asian-Market-Deutschland</strong> Inh. Iftikhar Ahmed e.K.</p>
+                    <p>Licensed travel agency. All bookings are financially protected. Terms & Conditions apply.</p>
                 </div>
             </div>
             
@@ -311,7 +327,6 @@
         </div>
         
     </footer>
-
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
