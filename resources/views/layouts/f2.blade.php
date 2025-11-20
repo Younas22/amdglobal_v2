@@ -17,6 +17,7 @@
         </div>
     </div>
 
+    @if(isset($flights_data) && isset($flight_search))
         <!-- Search Info Bar -->
         <div class="bg-white border-b border-gray-200">
             <div class="max-w-7xl mx-auto px-4 py-3">
@@ -617,8 +618,36 @@
                 </div>
             </div>
         </div>
+        @else
+
+        <div class="max-w-4xl mx-auto px-5 py-12">
+            <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-8 text-center">
+                <div class="flex justify-center mb-4">
+                    <div class="bg-red-100 text-red-600 p-4 rounded-full">
+                        <i class="fas fa-plane-slash text-3xl"></i>
+                    </div>
+                </div>
+
+                <h2 class="text-xl font-bold text-gray-800 mb-2">No Flights Found</h2>
+
+                <p class="text-sm text-gray-600 mb-4">
+                    We couldn’t find any flights matching your search criteria.  
+                    Try adjusting your destination, dates, or passenger details.
+                </p>
+
+                <a href="{{ url('/flights') }}"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow">
+                    <i class="fas fa-search"></i>
+                    Search Again
+                </a>
+            </div>
+        </div>
+
+    @endif
+
     </div>
 
+    @if(isset($flights_data) && isset($flight_search))
     <script>
         // Generate modal functions dynamically
         @if(isset($flight_search['trip_type']) && $flight_search['trip_type'] == "oneway")
@@ -721,18 +750,21 @@
             }
         });
     </script>
+    @endif
 
-<script>
-    const searchCollapseBtn = document.getElementById('searchCollapseBtn');
-    const searchCollapseContent = document.getElementById('searchCollapseContent');
-    const collapseIcon = document.getElementById('collapseIcon');
+    <script>
+        const searchCollapseBtn = document.getElementById('searchCollapseBtn');
+        const searchCollapseContent = document.getElementById('searchCollapseContent');
+        const collapseIcon = document.getElementById('collapseIcon');
 
-    searchCollapseBtn.addEventListener('click', function() {
-        searchCollapseBtn.classList.toggle('active');
-        searchCollapseContent.classList.toggle('active');
-        collapseIcon.style.transform = searchCollapseContent.classList.contains('active')
-            ? 'rotate(180deg)'
-            : 'rotate(0deg)';
-    });
-</script>
+        searchCollapseBtn.addEventListener('click', function() {
+            searchCollapseBtn.classList.toggle('active');
+            searchCollapseContent.classList.toggle('active');
+            collapseIcon.style.transform = searchCollapseContent.classList.contains('active')
+                ? 'rotate(180deg)'
+                : 'rotate(0deg)';
+        });
+    </script>
+
+
 @endsection

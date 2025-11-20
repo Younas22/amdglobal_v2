@@ -59,8 +59,7 @@ class FlightsController extends Controller
     }
     public function search($origin, $destination, $trip, $flight_type, $departure_date, $return_date = null, $adult = null, $child = null, $infant = null)
     {
-        // echo "Searching flights from $origin to $destination, trip type: $trip, flight type: $flight_type, departure: $departure_date, return: $return_date, adults: $adult, children: $child, infants: $infant"; exit;
-
+        
         try {
             // For oneway trips, adjust parameters
             if ($trip == "oneway") {
@@ -121,6 +120,7 @@ class FlightsController extends Controller
             $endpoint = url('/') . "/api/".$api_cred->company_name."/flight_search";
 
             $response = Http::post($endpoint, $payload);
+            
             //$response = json_decode(file_get_contents(public_path('response.json')), true);
             if ($response->successful()) {
 
@@ -159,7 +159,6 @@ class FlightsController extends Controller
                     $currentPage,
                     ['path' => url()->current(), 'query' => request()->query()]
                 );
-
 
                 return view($view, [
                     'flights_data' => $paginatedFlights,
