@@ -205,7 +205,7 @@
                                         </div>
                                         <div class="text-right">
                                             <p class="text-xs text-gray-600">Total fare</p>
-                                            <p class="text-2xl font-bold text-gray-900">{{ $segment['segments'][0][0]['currency'] }} {{ $segment['segments'][0][0]['price'] }}</p>
+                                            <p class="text-2xl font-bold text-[#0077BE]">{{ $segment['segments'][0][0]['currency'] }} {{ $segment['segments'][0][0]['price'] }}</p>
                                         </div>
                                     </div>
 
@@ -267,9 +267,9 @@
                         <!-- Modal for One Way -->
                         <div id="modal{{ $modalCounter }}" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                             <div class="bg-white rounded-3xl w-full max-w-2xl border-8 border-white shadow-2xl">
-                                <div class="bg-[#0077BE] text-white px-6 py-4 rounded-t-2xl flex justify-content-between items-start">
+                                <div class="bg-[#0077BE] text-white px-6 py-4 rounded-t-2xl flex justify-between items-start">
                                     <div>
-                                        <h2 class="text-lg font-bold">{{ $segment['segments'][0][0]['departure']['airport'] }} to {{ end($segment['segments'][0])['arrival']['airport'] }}</h2>
+                                        <h2 class="text-lg font-bold-">{{ $segment['segments'][0][0]['departure']['airport'] }} to {{ end($segment['segments'][0])['arrival']['airport'] }}</h2>
                                         <p class="text-xs text-blue-200">{{ $segment['segments'][0][0]['departure']['date_convert'] }}</p>
                                     </div>
                                     <button onclick="closeModal{{ $modalCounter }}()" class="p-1 hover:bg-blue-800 rounded-lg transition">
@@ -311,7 +311,7 @@
                                         <!-- Flight Segment -->
                                         <div class="grid grid-cols-3 gap-4">
                                             <div class="text-left">
-                                                <p class="text-2xl font-bold text-gray-900">{{ $seg['departure']['airport'] }} {{ $seg['departure']['time'] }}</p>
+                                                <p class="text-2xl font-bold- text-gray-900">{{ $seg['departure']['airport'] }} {{ $seg['departure']['time'] }}</p>
                                                 <p class="text-xs text-gray-600 mt-1">{{ $seg['departure']['date_convert'] }}</p>
                                                 @if(!empty($seg['departure']['terminal']))
                                                 <div class="flex items-center gap-1 mt-2">
@@ -326,7 +326,7 @@
                                                 <p class="text-xs font-bold text-gray-700">{{ $seg['duration'] }}</p>
                                             </div>
                                             <div class="text-right">
-                                                <p class="text-2xl font-bold text-gray-900">{{ $seg['arrival']['airport'] }} {{ $seg['arrival']['time'] }}</p>
+                                                <p class="text-2xl font-bold- text-gray-900">{{ $seg['arrival']['airport'] }} {{ $seg['arrival']['time'] }}</p>
                                                 <p class="text-xs text-gray-600 mt-1">{{ $seg['arrival']['date_convert'] }}</p>
                                                 @if(!empty($seg['arrival']['terminal']))
                                                 <div class="flex items-center justify-end gap-1 mt-2">
@@ -376,7 +376,7 @@
                                         </div>
                                         <div class="text-right">
                                             <p class="text-xs text-gray-600">Total fare</p>
-                                            <p class="text-2xl font-bold text-gray-900">{{ $segment['segments'][0][0]['currency'] }} {{ $segment['segments'][0][0]['price'] }}</p>
+                                            <p class="text-2xl font-bold text-[#0077BE]">{{ $segment['segments'][0][0]['currency'] }} {{ $segment['segments'][0][0]['price'] }}</p>
                                         </div>
                                     </div>
 
@@ -469,7 +469,7 @@
                                 <!-- Outbound Flight -->
                                 <div class="bg-[#0077BE] text-white px-6 py-4 rounded-t-2xl flex justify-between items-start">
                                     <div>
-                                        <h2 class="text-lg font-bold">Outbound: {{ $segment['segments'][0][0]['departure']['airport'] }} to {{ end($segment['segments'][0])['arrival']['airport'] }}</h2>
+                                        <h2 class="text-lg font-bold-">Outbound: {{ $segment['segments'][0][0]['departure']['airport'] }} to {{ end($segment['segments'][0])['arrival']['airport'] }}</h2>
                                         <p class="text-xs text-blue-200">{{ $segment['segments'][0][0]['departure']['date_convert'] }}</p>
                                     </div>
                                     <button onclick="closeRoundModal{{ $modalCounter }}()" class="p-1 hover:bg-blue-800 rounded-lg transition">
@@ -491,7 +491,7 @@
                                                     />
                                                 </div>
                                                 <div>
-                                                    <p class="text-sm font-bold text-gray-900">{{ $seg['airline_name'] }}</p>
+                                                    <p class="text-sm font-bold- text-gray-900">{{ $seg['airline_name'] }}</p>
                                                     <p class="text-xs text-gray-600">{{ $seg['flight_number'] }} • Economy</p>
                                                 </div>
                                             </div>
@@ -508,7 +508,7 @@
                                         </div>
                                         <div class="grid grid-cols-3 gap-4">
                                             <div class="text-left">
-                                                <p class="text-2xl font-bold text-gray-900">{{ $seg['departure']['airport'] }} {{ $seg['departure']['time'] }}</p>
+                                                <p class="text-2xl font-bold- text-gray-900">{{ $seg['departure']['airport'] }} {{ $seg['departure']['time'] }}</p>
                                                 <p class="text-xs text-gray-600 mt-1">{{ $seg['departure']['date_convert'] }}</p>
                                                 @if(!empty($seg['departure']['terminal']))
                                                 <div class="flex items-center gap-1 mt-2">
@@ -523,7 +523,7 @@
                                                 <p class="text-xs font-bold text-gray-700">{{ $seg['duration'] }}</p>
                                             </div>
                                             <div class="text-right">
-                                                <p class="text-2xl font-bold text-gray-900">{{ $seg['arrival']['airport'] }} {{ $seg['arrival']['time'] }}</p>
+                                                <p class="text-2xl font-bold- text-gray-900">{{ $seg['arrival']['airport'] }} {{ $seg['arrival']['time'] }}</p>
                                                 <p class="text-xs text-gray-600 mt-1">{{ $seg['arrival']['date_convert'] }}</p>
                                                 @if(!empty($seg['arrival']['terminal']))
                                                 <div class="flex items-center justify-end gap-1 mt-2">
@@ -541,7 +541,7 @@
                                 <!-- Return Flight -->
                                 <div class="bg-[#0077BE] text-white px-6 py-4 mt-4">
                                     <div>
-                                        <h2 class="text-lg font-bold">Return: {{ $segment['segments'][1][0]['departure']['airport'] }} to {{ end($segment['segments'][1])['arrival']['airport'] }}</h2>
+                                        <h2 class="text-lg font-bold-">Return: {{ $segment['segments'][1][0]['departure']['airport'] }} to {{ end($segment['segments'][1])['arrival']['airport'] }}</h2>
                                         <p class="text-xs text-blue-200">{{ $segment['segments'][1][0]['departure']['date_convert'] }}</p>
                                     </div>
                                 </div>
@@ -560,7 +560,7 @@
                                                     />
                                                 </div>
                                                 <div>
-                                                    <p class="text-sm font-bold text-gray-900">{{ $seg['airline_name'] }}</p>
+                                                    <p class="text-sm font-bold- text-gray-900">{{ $seg['airline_name'] }}</p>
                                                     <p class="text-xs text-gray-600">{{ $seg['flight_number'] }} • Economy</p>
                                                 </div>
                                             </div>
@@ -577,7 +577,7 @@
                                         </div>
                                         <div class="grid grid-cols-3 gap-4">
                                             <div class="text-left">
-                                                <p class="text-2xl font-bold text-gray-900">{{ $seg['departure']['airport'] }} {{ $seg['departure']['time'] }}</p>
+                                                <p class="text-2xl font-bold- text-gray-900">{{ $seg['departure']['airport'] }} {{ $seg['departure']['time'] }}</p>
                                                 <p class="text-xs text-gray-600 mt-1">{{ $seg['departure']['date_convert'] }}</p>
                                                 @if(!empty($seg['departure']['terminal']))
                                                 <div class="flex items-center gap-1 mt-2">
@@ -592,7 +592,7 @@
                                                 <p class="text-xs font-bold text-gray-700">{{ $seg['duration'] }}</p>
                                             </div>
                                             <div class="text-right">
-                                                <p class="text-2xl font-bold text-gray-900">{{ $seg['arrival']['airport'] }} {{ $seg['arrival']['time'] }}</p>
+                                                <p class="text-2xl font-bold- text-gray-900">{{ $seg['arrival']['airport'] }} {{ $seg['arrival']['time'] }}</p>
                                                 <p class="text-xs text-gray-600 mt-1">{{ $seg['arrival']['date_convert'] }}</p>
                                                 @if(!empty($seg['arrival']['terminal']))
                                                 <div class="flex items-center justify-end gap-1 mt-2">

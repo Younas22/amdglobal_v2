@@ -345,10 +345,7 @@
 
 <script>
     // ========== API Configuration ==========
-    const fullPath = window.location.pathname.split('/');
-    const baseFolder = fullPath[1];
-    const API_BASE_URL = window.location.origin + "/" + baseFolder;
-
+    const API_BASE_URL = window.location.origin;
     // ========== GLOBAL VARIABLES ==========
     let tripType = 'round';
     let hotelTravelers = { adult: 2, child: 0, room: 1 };
@@ -1039,7 +1036,7 @@
 
             // Change loader image based on type
             if (loaderImage && loaderType) {
-                const baseUrl = window.location.origin + "/" + baseFolder;
+                const baseUrl = window.location.origin;
                 if (loaderType === 'flight') {
                     loaderImage.src = baseUrl + '/public/assets/images/settings/flight-loader.gif';
                 } else if (loaderType === 'hotel') {
@@ -1051,9 +1048,15 @@
 
     function hidePageLoader() {
         const loader = document.getElementById('pageLoader');
+        const loaderImage = document.getElementById('loaderImage');
         if (loader) {
             setTimeout(() => {
                 loader.classList.add('hidden');
+                // Reset loader image to default main.gif
+                if (loaderImage) {
+                    const baseUrl = window.location.origin;
+                    loaderImage.src = baseUrl + '/public/assets/images/settings/main.gif';
+                }
             }, 300);
         }
     }
@@ -1063,10 +1066,8 @@
         hidePageLoader();
     });
 
-    // Show loader on page navigation
-    window.addEventListener('beforeunload', function() {
-        showPageLoader();
-    });
+    // Show loader ONLY on form submissions (not on every page navigation)
+    // Removed global beforeunload event - loader will only show when flight/hotel search is clicked
 
     // ========== NEWSLETTER SUBSCRIPTION ==========
     document.addEventListener('DOMContentLoaded', function() {

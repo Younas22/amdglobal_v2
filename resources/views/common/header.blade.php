@@ -72,9 +72,11 @@
         }
 
         #pageLoader img {
-            max-width: 150px;
+            width: 30vw;
+            max-width: 300px;
             height: auto;
         }
+
 
         .loader-text {
             position: absolute;
@@ -89,26 +91,19 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
+
+
+
+
     </style>
 </head>
 <body>
+
+
     <!-- Page Loader -->
     <div id="pageLoader">
         <div style="text-align: center;">
-            @php
-                // Check if current route is hotel-related
-                $isHotelPage = request()->is('hotel/*') ||
-                               request()->is('hotels/*') ||
-                               request()->is('hotels') ||
-                               request()->routeIs('hotel.*') ||
-                               request()->routeIs('hotels.*');
-
-                // Determine which loader to show
-                $loaderImage = $isHotelPage
-                    ? 'public/assets/images/settings/hotel-loader.gif'
-                    : 'public/assets/images/settings/flight-loader.gif';
-            @endphp
-            <img id="loaderImage" src="{{ url($loaderImage) }}" alt="Loading...">
+            <img id="loaderImage" src="{{ url('public/assets/images/settings/main.gif') }}" alt="Loading...">
             <!-- <p class="loader-text">Loading...</p> -->
         </div>
     </div>

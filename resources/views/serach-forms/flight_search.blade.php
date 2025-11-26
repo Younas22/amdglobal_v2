@@ -1131,6 +1131,11 @@
             return;
         }
 
+        // Show flight loader before navigation
+        if (typeof showPageLoader === 'function') {
+            showPageLoader('flight');
+        }
+
         const baseUrl = "{{ url('flights_search') }}";
 
         if (trip == 'oneway') {
